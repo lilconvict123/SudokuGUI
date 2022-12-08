@@ -1,4 +1,5 @@
 import pygame
+from SolvingAlgorithm import valid, find0, solve
 pygame.init()
 
 window = pygame.display.set_mode((450,500))
@@ -88,6 +89,23 @@ def unselectAll():
         for item in row:
             item.selected = False
 
+def solution():
+
+    boardNumberArray = []
+    for row in range(9):
+        currentRow = []
+        for column in range(9):
+            if cellArray[row][column].number == None:
+                currentRow.append(0)
+            else:
+                currentRow.append(cellArray[row][column].number)
+            if len(currentRow) == 8:
+                boardNumberArray.append(currentRow)
+    solve(boardNumberArray)
+    for row in range(9):
+        for column in range(9):
+            cellArray[row][column].number = boardNumberArray[row][column]
+
 def updateScreen():
     window.fill((255,255,255))
     drawBoard()
@@ -106,6 +124,8 @@ while running:
             running = False;
         if pygame.mouse.get_pressed()[0]:
             coordinates = pygame.mouse.get_pos()
+            if coordinates[1]>450:
+                solution()
             changeCellColour(coordinates)
         if pygame.key.get_pressed()[pygame.K_0]:
             changeCell(coordinates,0)

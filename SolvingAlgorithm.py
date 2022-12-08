@@ -1,7 +1,7 @@
-def find0():
+def find0(board):
 
     for row in range(9):
-        for column in rnge(9):
+        for column in range(9):
             if board[row][column] == 0:
                 return (row,column)
     return -1
@@ -27,12 +27,12 @@ def valid(board, num, pos):
 
 def solve(board):
 
-    zeroCoord = find0()
+    zeroCoord = find0(board)
 
-    if zeroCoords == -1:
+    if zeroCoord == -1:
         return True
 
-    row, column = zeroCoords
+    row, column = zeroCoord
     for count in range(1,10):
         if valid(board,count,(row,column)):
             board[row][column] = count
